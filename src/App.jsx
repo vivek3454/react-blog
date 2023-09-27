@@ -5,6 +5,7 @@ import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
 import { Header, Footer } from "./components/index";
 import { Outlet } from "react-router-dom";
+import Loader from "./components/Loader";
 
 
 function App() {
@@ -12,10 +13,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    authService.createAccount({email:"vivek@gmail.com", password:"Vivek@2022", name:"vivek"})
+    authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
-          console.log(userData);
           dispatch(login({ userData }));
         }
         else {
@@ -24,22 +24,23 @@ function App() {
       })
       .catch((error) => {
         console.log("Error", error);
+        dispatch(logout());
       })
       .finally(() => setLoading(false));
   }, []);
 
 
   return !loading ? (
-    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+    <div className="min-h-screen w-full flex flex-wrap content-between">
       <div className="w-full block">
         <Header />
         <main>
-          <Outlet />
+          {/* todo: <Outlet /> */}
         </main>
         <Footer />
       </div>
     </div>
-  ) : (<div>Loading...</div>);
+  ) : (<Loader />);
 }
 
 export default App;
