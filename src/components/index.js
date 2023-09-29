@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import LogoutButton from "./Header/LogoutButton";
 import Input from "./Input";
 import Button from "./Button";
+import Loader from "./Loader";
 
 export { 
     Header,
@@ -13,5 +14,6 @@ export {
     Logo,
     LogoutButton,
     Input,
-    Button
+    Button,
+    Loader
  };
