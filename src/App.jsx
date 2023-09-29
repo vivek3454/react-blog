@@ -30,7 +30,7 @@ function App() {
   }, []);
 
 
-  return true ? (
+  return !loading ? (
     <div className="min-h-screen w-full flex flex-wrap content-between">
       <div className="w-full block">
         <BrowserRouter>

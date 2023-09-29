@@ -35,7 +35,7 @@ const Header = () => {
     },
   ];
   return (
-    <header className="py-3 shadow sticky top-0 overflow-y-hidden">
+    <header className="py-3 shadow sticky top-0 flex items-center h-20 bg-white">
       <Container>
         <nav className="flex items-center">
           <div className="mr-4">

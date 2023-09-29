@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     quotes: ["error", "double"],
     semi: ["error", "always"],
+    "jsx-quotes": ["error", "prefer-double"],
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
