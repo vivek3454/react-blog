@@ -6,6 +6,9 @@ import LogoutButton from "./Header/LogoutButton";
 import Input from "./Input";
 import Button from "./Button";
 import Loader from "./Loader";
+import RTE from "./RTE";
+import PostForm from "./post-form/PostForm";
+import Select from "./Select";
 
 export { 
     Header,
@@ -15,5 +18,8 @@ export {
     LogoutButton,
     Input,
     Button,
-    Loader
+    Select,
+    Loader,
+    RTE,
+    PostForm
  };

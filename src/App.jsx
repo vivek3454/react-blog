@@ -3,7 +3,7 @@ import "./App.css";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
-import { Header, Footer } from "./components/index";
+import { Header, Footer, PostForm } from "./components/index";
 import { BrowserRouter, Outlet } from "react-router-dom";
 import Loader from "./components/Loader";
 
@@ -35,8 +35,9 @@ function App() {
       <div className="w-full block">
         <BrowserRouter>
           <Header />
-          <main className="h-[90vh]">
+          <main className="min-h-[90vh]">
             {/* todo: <Outlet /> */}
+            <PostForm />
           </main>
           <Footer />
         </BrowserRouter>
