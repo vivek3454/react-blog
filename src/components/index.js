@@ -9,6 +9,9 @@ import Loader from "./Loader";
 import RTE from "./RTE";
 import PostForm from "./post-form/PostForm";
 import Select from "./Select";
+import Signup from "./Signup";
+import Login from "./Login";
+import PostCard from "./PostCard";
 
 export { 
     Header,
@@ -21,5 +24,8 @@ export {
     Select,
     Loader,
     RTE,
-    PostForm
+    PostForm,
+    Signup,
+    Login,
+    PostCard
  };
