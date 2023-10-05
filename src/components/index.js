@@ -13,6 +13,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import PostCard from "./PostCard";
 import AuthLayout from "./AuthLayout";
+import Skeleton from "./Skeleton";
 
 export {
     Header,
@@ -29,5 +30,6 @@ export {
     Signup,
     Login,
     PostCard,
-    AuthLayout
+    AuthLayout,
+    Skeleton
 };

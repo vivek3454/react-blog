@@ -9,17 +9,18 @@ const EditPost = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (slug) {
-            postService.getPost(slug).then((post) => {
-                if (post) {
-                    setPost(post);
+        (async () => {
+            if (slug) {
+                const dbpost = await postService.getPost(slug);
+                if (dbpost) {
+                    setPost(dbpost);
                 }
-            });
-        }
-        else {
-            navigate("/");
-        }
-    }, []);
+            }
+            else {
+                navigate("/");
+            }
+        })();
+    }, [slug]);
 
     return post ? (
         <div className="py-8">
