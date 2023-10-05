@@ -2,25 +2,35 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import authService from "../../appwrite/auth";
 import { logout } from "../../store/authSlice";
+import { Button } from "../index";
+import toast from "react-hot-toast";
 
 const LogoutButton = () => {
     const dispatch = useDispatch();
     const logoutHandler = () => {
-        authService.logout()
-            .then(() => {
-                dispatch(logout());
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
+        toast.promise(
+
+            authService.logout()
+                .then(() => {
+                    dispatch(logout());
+                })
+                .catch((error) => toast.error(error)),
+            {
+                loading: "Loading...",
+                success: "User Logged out",
+                error: "Could not logout",
+            }
+        );
     };
     return (
-        <button
-            className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+        <Button
+            bgColor="bg-[#9ED5CB]"
+            textColor="text-black"
+            className="px-6"
             onClick={logoutHandler}
         >
             Logout
-        </button>
+        </Button>
     );
 };
 

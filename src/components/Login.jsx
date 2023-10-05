@@ -5,6 +5,7 @@ import { Button, Input, Logo } from "./index";
 import { useDispatch } from "react-redux";
 import authService from "../appwrite/auth";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 function Login() {
     const navigate = useNavigate();
@@ -15,7 +16,10 @@ function Login() {
     const login = async (data) => {
         setError("");
         try {
+            toast.loading("Logging in");
             const session = await authService.login(data);
+            toast.dismiss();
+            toast.success("User logged in");
             if (session) {
                 const userData = await authService.getCurrentUser();
                 if (userData) dispatch(authLogin(userData));

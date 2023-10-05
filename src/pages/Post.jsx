@@ -4,6 +4,7 @@ import postService from "../appwrite/post";
 import { Button, Container } from "../components/index";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import fileService from "../appwrite/file";
 
 const Post = () => {
     const [post, setPost] = useState(null);
@@ -26,7 +27,7 @@ const Post = () => {
     const deletePost = () => {
         postService.deletePost(post.$id).then((status) => {
             if (status) {
-                postService.deleteFile(post.featuredImage);
+                fileService.deleteFile(post.feturedImage);
                 navigate("/");
             }
         });
@@ -37,7 +38,7 @@ const Post = () => {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={postService.getFilePreview(post.featuredImage)}
+                        src={fileService.getFilePreview(post.featuredImage)}
                         alt={post.title}
                         className="rounded-xl"
                     />

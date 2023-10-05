@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
 import FileService from "../../appwrite/file";
-import PostService from "../../appwrite/post";
+import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ReactLoading from "react-loading";
 
 const PostForm = ({ post }) => {
+    console.log(post);
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -16,11 +18,20 @@ const PostForm = ({ post }) => {
             status: post?.status || "active",
         },
     });
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
+        setLoading(true);
         if (post) {
             const file = data.image[0] ? await FileService.uploadFile(data.image[0]) : null;
 
@@ -28,10 +39,11 @@ const PostForm = ({ post }) => {
                 FileService.deleteFile(post.featuredImage);
             }
 
-            const dbPost = await PostService.updatePost(post.$id, {
+            const dbPost = await postService.updatePost(post.$id, {
                 ...data,
                 featuredImage: file ? file.$id : undefined,
             });
+            setLoading(false);
 
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
@@ -42,7 +54,8 @@ const PostForm = ({ post }) => {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
-                const dbPost = await PostService.createPost({ ...data, userId: userData.$id });
+                const dbPost = await postService.createPost({ ...data, userId: userData.$id });
+                setLoading(false);
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
@@ -102,11 +115,11 @@ const PostForm = ({ post }) => {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        <img
+                        {/* <img
                             src={FileService.getFilePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
-                        />
+                        /> */}
                     </div>
                 )}
                 <Select
@@ -115,7 +128,8 @@ const PostForm = ({ post }) => {
                     className="mb-4"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full">
+                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center gap-4">
+                    {loading && <ReactLoading type={"spin"} color={"#000"} height={"4%"} width={"4%"} />}
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

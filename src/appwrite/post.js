@@ -24,7 +24,6 @@ export class PostService {
                 slug,
                 {
                     title,
-                    slug,
                     content,
                     featuredImage,
                     status,
@@ -80,7 +79,7 @@ export class PostService {
         }
     }
 
-    async getAllPost(queries = [Query.equal("status",)]) {
+    async getAllPost(queries = [Query.equal("status","active")]) {
         try {
             return await this.databases.listDocuments(
                 config.appwriteDatabaseId,
