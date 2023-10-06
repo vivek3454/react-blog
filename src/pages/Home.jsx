@@ -13,14 +13,15 @@ const Home = () => {
     useEffect(() => {
         postService.getAllPost()
             .then((posts) => {
+                console.log(posts);
                 if (posts) {
                     setPosts(posts.documents);
-                    setLoading(false);
                 }
             })
             .catch((error) => {
                 toast.error(error.message);
-            });
+            })
+            .finally(() => setLoading(false));
     }, []);
 
 
