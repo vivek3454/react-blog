@@ -6,7 +6,6 @@ import FileService from "../../appwrite/file";
 import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import ReactLoading from "react-loading";
 
 const PostForm = ({ post }) => {
     console.log(post);
@@ -115,11 +114,12 @@ const PostForm = ({ post }) => {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        {/* <img
-                            src={FileService.getFilePreview(post.featuredImage)}
+                        {post.featuredImage}
+                        <img
+                            src={FileService.getFilePreview(post?.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
-                        /> */}
+                        />
                     </div>
                 )}
                 <Select
@@ -129,8 +129,10 @@ const PostForm = ({ post }) => {
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center gap-4">
-                    {loading && <ReactLoading type={"spin"} color={"#000"} height={"4%"} width={"4%"} />}
-                    {post ? "Update" : "Submit"}
+                    {loading && post && "Updating..."}
+                    {!loading && post && "Update"}
+                    {loading && !post && "Submiting..."}
+                    {!loading && !post && "Submit"}
                 </Button>
             </div>
         </form>

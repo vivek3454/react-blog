@@ -20,7 +20,7 @@ const EditPost = () => {
                 navigate("/");
             }
         })();
-    }, [slug]);
+    }, []);
 
     return post ? (
         <div className="py-8">
