@@ -15,8 +15,9 @@ import Login from "./pages/Login.jsx";
 import AddPost from "./pages/AddPost";
 import EditPost from "./pages/EditPost";
 import Post from "./pages/Post";
-import AllPosts from "./pages/AllPosts";
 import { Toaster } from "react-hot-toast";
+import MyPosts from "./pages/MyPosts.jsx";
+import FavoritePosts from "./pages/FavoritePosts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -44,11 +45,20 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/all-posts",
+        path: "/my-posts",
         element: (
           <AuthLayout authentication>
             {" "}
-            <AllPosts />
+            <MyPosts />
+          </AuthLayout>
+        ),
+      },
+      {
+        path: "/favorite-posts",
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <FavoritePosts />
           </AuthLayout>
         ),
       },

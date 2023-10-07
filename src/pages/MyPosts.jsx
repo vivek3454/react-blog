@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import postService from "../appwrite/post";
 import { Container, PostCard, Skeleton } from "../components/index";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { Query } from "appwrite";
 
-const AllPosts = () => {
+const MyPosts = () => {
     const skeletonArray = Array(8).fill("");
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const userData = useSelector((state)=> state?.auth?.userData);
+    console.log(userData);
     useEffect(() => {
-        postService.getAllPost([])
+        postService.getAllPost([Query.equal("userId", `${userData?.$id}`)])
             .then((post) => {
                 if (post) {
                     setPosts(post.documents);
@@ -41,4 +45,4 @@ const AllPosts = () => {
     );
 };
 
-export default AllPosts;
+export default MyPosts;
