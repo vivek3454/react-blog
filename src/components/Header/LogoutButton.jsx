@@ -26,7 +26,7 @@ const LogoutButton = () => {
         <Button
             bgColor="bg-[#9ED5CB]"
             textColor="text-black"
-            className="px-6"
+            className="px-6 hover:bg-white"
             onClick={logoutHandler}
         >
             Logout

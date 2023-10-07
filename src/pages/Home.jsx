@@ -13,7 +13,6 @@ const Home = () => {
     useEffect(() => {
         postService.getAllPost()
             .then((posts) => {
-                console.log(posts);
                 if (posts) {
                     setPosts(posts.documents);
                 }
