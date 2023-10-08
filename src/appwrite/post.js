@@ -20,7 +20,7 @@ export class PostService {
         try {
             return await this.databases.createDocument(
                 config.appwriteDatabaseId,
-                config.appwriteCollectionId,
+                config.appwriteCollectionArticlesId,
                 slug,
                 {
                     title,
@@ -38,7 +38,7 @@ export class PostService {
         try {
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
-                config.appwriteCollectionId,
+                config.appwriteCollectionArticlesId,
                 slug,
                 {
                     title,
@@ -56,7 +56,7 @@ export class PostService {
         try {
             await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
-                config.appwriteCollectionId,
+                config.appwriteCollectionArticlesId,
                 slug
             );
             return true;
@@ -70,7 +70,7 @@ export class PostService {
         try {
             return await this.databases.getDocument(
                 config.appwriteDatabaseId,
-                config.appwriteCollectionId,
+                config.appwriteCollectionArticlesId,
                 slug
             );
         } catch (error) {
@@ -79,11 +79,24 @@ export class PostService {
         }
     }
 
-    async getAllPost(queries = [Query.equal("status","active")]) {
+    async getAllPost(queries = [Query.equal("status", "active")]) {
         try {
             return await this.databases.listDocuments(
                 config.appwriteDatabaseId,
-                config.appwriteCollectionId,
+                config.appwriteCollectionArticlesId,
+                queries
+            );
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    }
+
+    async getAllFavoritePosts(queries = [Query.equal("userId", "active")]) {
+        try {
+            return await this.databases.listDocuments(
+                config.appwriteDatabaseId,
+                config.appwriteCollectionFavoriteArticlesId,
                 queries
             );
         } catch (error) {
