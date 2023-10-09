@@ -9,8 +9,7 @@ const MyPosts = () => {
     const skeletonArray = Array(8).fill("");
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const userData = useSelector((state)=> state?.auth?.userData);
-    console.log(userData);
+    const userData = useSelector((state) => state?.auth?.userData);
     useEffect(() => {
         postService.getAllPost([Query.equal("userId", `${userData?.$id}`)])
             .then((post) => {

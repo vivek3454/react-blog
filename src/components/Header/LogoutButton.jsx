@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import authService from "../../appwrite/auth";
 import { logout } from "../../store/authSlice";
 import { Button } from "../index";
+import { FiLogOut } from "react-icons/fi";
 import toast from "react-hot-toast";
 
 const LogoutButton = () => {
@@ -26,10 +27,10 @@ const LogoutButton = () => {
         <Button
             bgColor="bg-[#9ED5CB]"
             textColor="text-black"
-            className="px-6 hover:bg-white"
+            className="bg-transparent border-transparent"
             onClick={logoutHandler}
         >
-            Logout
+            <FiLogOut size={23} className="text-black dark:text-white" />
         </Button>
     );
 };

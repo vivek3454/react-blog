@@ -45,7 +45,7 @@ const Home = () => {
     }
 
     return (
-        <div className="w-full py-8">
+        <div className="w-full py-8 dark:bg-black bg-white">
             <Container>
                 <div className="flex flex-wrap">
                     {posts.length > 0 && posts.map((post) => (

@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PostForm = ({ post }) => {
-    console.log(post);
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
             title: post?.title || "",
@@ -90,13 +89,13 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Title :"
                     placeholder="Title"
-                    className="mb-4"
+                    className="mb-4 dark:bg-gray-800 text-white"
                     {...register("title", { required: true })}
                 />
                 <Input
                     label="Slug :"
                     placeholder="Slug"
-                    className="mb-4"
+                    className="mb-4 dark:bg-gray-800 text-white"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -108,7 +107,7 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="mb-4"
+                    className="mb-4 dark:bg-gray-800 text-white"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
@@ -125,10 +124,10 @@ const PostForm = ({ post }) => {
                 <Select
                     options={["active", "inactive"]}
                     label="Status"
-                    className="mb-4"
+                    className="mb-4 dark:bg-gray-800 text-white"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center gap-4">
+                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center hover:bg-white gap-4">
                     {loading && post && "Updating..."}
                     {!loading && post && "Update"}
                     {loading && !post && "Submiting..."}

@@ -34,14 +34,14 @@ function Login() {
         <div
             className="flex items-center justify-center w-full"
         >
-            <div className={"mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10"}>
+            <div className={"mx-auto w-full max-w-lg dark:bg-gray-800 bg-gray-100 rounded-xl p-10 border border-black/10"}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
                     </span>
                 </div>
                 <h2 className="text-center text-2xl font-bold leading-tight">Sign in to your account</h2>
-                <p className="mt-2 text-center text-base text-black/60">
+                <p className="mt-2 text-center text-base dark:text-gray-600 text-black/60">
                     Don&apos;t have any account?&nbsp;
                     <Link
                         to="/signup"
@@ -56,6 +56,7 @@ function Login() {
                         <Input
                             label="Email: "
                             placeholder="Enter your email"
+                            className="dark:bg-gray-800 dark:text-white"
                             type="email"
                             {...register("email", {
                                 required: true,
@@ -68,6 +69,7 @@ function Login() {
                         <Input
                             label="Password: "
                             type="password"
+                            className="dark:bg-gray-800 dark:text-white"
                             placeholder="Enter your password"
                             {...register("password", {
                                 required: true,
@@ -75,7 +77,7 @@ function Login() {
                         />
                         <Button
                             type="submit"
-                            className="w-full font-semibold"
+                            className="w-full font-semibold hover:border-[#9ED5CB] hover:bg-white"
                             bgColor="bg-[#9ED5CB]"
                             textColor="text-black"
                         >Sign in</Button>

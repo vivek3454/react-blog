@@ -32,14 +32,14 @@ const Signup = () => {
 
     return (
         <div className="flex items-center justify-center">
-            <div className={"mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10"}>
+            <div className={"mx-auto w-full max-w-lg dark:bg-gray-800 bg-gray-100 rounded-xl p-10 border border-black/10"}>
                 <div className="mb-2 flex justify-center">
                     <span className="inline-block w-full max-w-[100px]">
                         <Logo width="100%" />
                     </span>
                 </div>
                 <h2 className="text-center text-2xl font-bold leading-tight">Sign up to create account</h2>
-                <p className="mt-2 text-center text-base text-black/60">
+                <p className="mt-2 text-center text-base dark:text-gray-600 text-black/60">
                     Already have an account?&nbsp;
                     <Link
                         to="/login"
@@ -54,6 +54,7 @@ const Signup = () => {
                     <div className="space-y-5">
                         <Input
                             label="Full Name: "
+                            className="dark:bg-gray-800 dark:text-white"
                             placeholder="Enter your full name"
                             {...register("name", {
                                 required: true,
@@ -61,6 +62,7 @@ const Signup = () => {
                         />
                         <Input
                             label="Email: "
+                            className="dark:bg-gray-800 dark:text-white"
                             placeholder="Enter your email"
                             type="email"
                             {...register("email", {
@@ -74,6 +76,7 @@ const Signup = () => {
                         <Input
                             label="Password: "
                             type="password"
+                            className="dark:bg-gray-800 dark:text-white"
                             placeholder="Enter your password"
                             {...register("password", {
                                 required: true,
@@ -83,7 +86,7 @@ const Signup = () => {
                             type="submit"
                             bgColor="bg-[#9ED5CB]"
                             textColor="text-black"
-                            className="w-full font-semibold">
+                            className="w-full font-semibold hover:border-[#9ED5CB] hover:bg-white">
                             Create Account
                         </Button>
                     </div>

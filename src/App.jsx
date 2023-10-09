@@ -7,6 +7,7 @@ import { Header, Footer } from "./components/index";
 import { Outlet } from "react-router-dom";
 import Loader from "./components/Loader";
 import toast from "react-hot-toast";
+import { changeTheme } from "./store/themeSlice";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(changeTheme(`${localStorage.getItem("theme")}`));
     authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
@@ -31,10 +33,10 @@ function App() {
 
 
   return !loading ? (
-    <div className="min-h-screen w-full flex flex-wrap content-between">
+    <div className="min-h-screen w-full bg-white dark:bg-black text-black dark:text-white flex flex-wrap content-between">
       <div className="w-full block">
         <Header />
-        <main className="min-h-[90vh]">
+        <main className="min-h-[90vh] bg-white dark:bg-black text-black dark:text-white">
           <Outlet />
         </main>
         <Footer />
