@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, RTE, Select } from "../index";
-import FileService from "../../appwrite/file";
+import fileService from "../../appwrite/file";
 import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,13 +16,15 @@ const PostForm = ({ post }) => {
             status: post?.status || "active",
         },
     });
+    const [file, setFile] = useState("");
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 2000);
-    }, []);
+        if (post) {
+            (async () => {
+                post && setFile(fileService.getFilePreview(post?.featuredImage));
+            })();
+        }
+    }, [post]);
 
 
     const navigate = useNavigate();
@@ -31,10 +33,10 @@ const PostForm = ({ post }) => {
     const submit = async (data) => {
         setLoading(true);
         if (post) {
-            const file = data.image[0] ? await FileService.uploadFile(data.image[0]) : null;
+            const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
 
             if (file) {
-                FileService.deleteFile(post.featuredImage);
+                fileService.deleteFile(post.featuredImage);
             }
 
             const dbPost = await postService.updatePost(post.$id, {
@@ -47,7 +49,7 @@ const PostForm = ({ post }) => {
                 navigate(`/post/${dbPost.$id}`);
             }
         } else {
-            const file = data.image[0] ? await FileService.uploadFile(data.image[0]) : null;
+            const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
 
             if (file) {
                 const fileId = file.$id;
@@ -84,8 +86,8 @@ const PostForm = ({ post }) => {
     }, [watch, slugTransform, setValue]);
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+        <form onSubmit={handleSubmit(submit)} className="flex gap-4 flex-col lg:flex-row">
+            <div className="w-full lg:w-2/3 px-2">
                 <Input
                     label="Title :"
                     placeholder="Title"
@@ -103,7 +105,7 @@ const PostForm = ({ post }) => {
                 />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            <div className="w-1/3 px-2">
+            <div className="w-full lg:w-1/3 px-2">
                 <Input
                     label="Featured Image :"
                     type="file"
@@ -113,9 +115,8 @@ const PostForm = ({ post }) => {
                 />
                 {post && (
                     <div className="w-full mb-4">
-                        {post.featuredImage}
                         <img
-                            src={FileService.getFilePreview(post?.featuredImage)}
+                            src={file}
                             alt={post.title}
                             className="rounded-lg"
                         />

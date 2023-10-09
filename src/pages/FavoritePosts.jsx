@@ -30,9 +30,9 @@ const FavoritePosts = () => {
   return (
     <div className="w-full py-8">
       <Container>
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
           {allFavoritePosts.length > 0 && allFavoritePosts.map((post) => (
-            <div key={post.$id} className="p-2 w-1/4">
+            <div key={post.$id} className="p-2 w-80 max-sm:w-96 md:w-[310px]">
               <PostCard post={post} />
             </div>
           ))}

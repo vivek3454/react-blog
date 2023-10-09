@@ -53,9 +53,9 @@ function PostCard({ post }) {
 
 
     return (
-        <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-xl p-4 h-[360px] relative">
+        <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-xl p-4 min-h-[390px] relative">
             <Link to={`/post/${post.$id}`}>
-                <div className="w-full justify-center mb-4">
+                <div className="w-full flex justify-center mb-4">
                     <img src={fileService.getFilePreview(post.featuredImage)} alt={post.title}
                         className="rounded-xl" />
 

@@ -36,21 +36,23 @@ const Post = () => {
     return post ? (
         <div className="py-8">
             <Container>
-                <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
-                    <img
-                        src={fileService.getFilePreview(post.featuredImage)}
-                        alt={post.title}
-                        className="rounded-xl"
-                    />
+                <div className="w-full flex justify-center mb-4 relative p-2">
+                    <div className="max-w-3xl h-80 max-sm:h-40 w-full">
+                        <img
+                            src={fileService.getFilePreview(post.featuredImage)}
+                            alt={post.title}
+                            className="rounded-xl w-full h-full"
+                        />
+                    </div>
 
                     {isAuthor && (
                         <div className="absolute right-6 top-6">
                             <Link to={`/edit-post/${post.$id}`}>
-                                <Button bgColor="bg-green-500" className="mr-3 hover:bg-green-600">
+                                <Button bgColor="bg-green-500" className="mr-3 hover:bg-green-600 border-none">
                                     Edit
                                 </Button>
                             </Link>
-                            <Button bgColor="bg-red-500" className="hover:bg-red-600" onClick={deletePost}>
+                            <Button bgColor="bg-red-500" className="hover:bg-red-600 border-none" onClick={deletePost}>
                                 Delete
                             </Button>
                         </div>

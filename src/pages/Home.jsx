@@ -47,9 +47,9 @@ const Home = () => {
     return (
         <div className="w-full py-8 dark:bg-black bg-white">
             <Container>
-                <div className="flex flex-wrap">
+                <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
                     {posts.length > 0 && posts.map((post) => (
-                        <div key={post.$id} className="p-2 w-1/4">
+                        <div key={post.$id} className="p-2 md:w-[310px]">
                             <PostCard post={post} />
                         </div>
                     ))}

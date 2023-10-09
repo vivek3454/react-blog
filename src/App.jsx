@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
 import { login, logout } from "./store/authSlice";
@@ -42,7 +41,11 @@ function App() {
         <Footer />
       </div>
     </div>
-  ) : (<Loader height={"90vh"} />);
+  ) : (
+    <div className="bg-white h-screen dark:bg-black">
+      <Loader height={"90vh"} />
+    </div>
+  );
 }
 
 export default App;
