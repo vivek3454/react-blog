@@ -12,7 +12,6 @@ const EditPost = () => {
         (async () => {
             if (slug) {
                 const dbpost = await postService.getPost(slug);
-                console.log(dbpost);
                 if (dbpost) {
                     setPost(dbpost);
                 }

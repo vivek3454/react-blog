@@ -34,7 +34,7 @@ export class PostService {
         }
     }
 
-    async updatePost(slug, { title, content, featuredImage, status, }) {
+    async updatePost(slug, { title, content, featuredImage, status, userId }) {
         try {
             return await this.databases.updateDocument(
                 config.appwriteDatabaseId,
