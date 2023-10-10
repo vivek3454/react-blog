@@ -27,9 +27,9 @@ const MyPosts = () => {
                 {posts.length === 0 && !loading &&
                     <div className="flex w-full h-[90vh] justify-center items-center">No Post</div>
                 }
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
+                <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:gap-5 gap-12 max-lg:place-items-center">
                     {posts.length > 0 && posts.map((post) => (
-                        <div key={post.$id} className="p-2 w-80 max-sm:w-96 md:w-[310px]">
+                        <div key={post.$id} className="p-2 md:w-[310px]">
                             <PostCard post={post} />
                         </div>
                     ))}

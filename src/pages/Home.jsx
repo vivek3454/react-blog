@@ -47,7 +47,7 @@ const Home = () => {
     return (
         <div className="w-full py-8 dark:bg-black bg-white">
             <Container>
-                <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
+                <div className="grid sm:grid-cols-2 grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 md:gap-5 gap-12 max-lg:place-items-center">
                     {posts.length > 0 && posts.map((post) => (
                         <div key={post.$id} className="p-2 md:w-[310px]">
                             <PostCard post={post} />

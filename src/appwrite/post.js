@@ -91,6 +91,37 @@ export class PostService {
             return false;
         }
     }
+    async addToFavorite({ postId, userId }) {
+        try {
+            let dbDocument = await this.databases.getDocument(
+                config.appwriteDatabaseId,
+                config.appwriteCollectionFavoriteArticlesId,
+                postId
+            );
+            if (dbDocument) {
+                await this.databases.deleteDocument(
+                    config.appwriteDatabaseId,
+                    config.appwriteCollectionFavoriteArticlesId,
+                    postId
+                );
+                return { addedToFav: false };
+            }
+        } catch (error) {
+            if (error.message === "Document with the requested ID could not be found.") {
+                await this.databases.createDocument(
+                    config.appwriteDatabaseId,
+                    config.appwriteCollectionFavoriteArticlesId,
+                    postId,
+                    {
+                        userId,
+                        postId
+                    }
+                );
+                return { addedToFav: true };
+            }
+            return false;
+        }
+    }
 
     async getAllFavoritePosts(queries = [Query.equal("userId", "active")]) {
         try {
