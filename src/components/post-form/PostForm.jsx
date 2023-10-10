@@ -8,14 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const PostForm = ({ post }) => {
-    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
-        defaultValues: {
-            title: post?.title || "",
-            slug: post?.$id || "",
-            content: post?.content || "",
-            status: post?.status || "active",
-        },
+    let defaults = {
+        title: post?.title || "",
+        slug: post?.$id || "",
+        content: post?.content || "",
+        status: post?.status || "active"
+    };
+    const { register, handleSubmit, watch, setValue, control, getValues, reset } = useForm({
+        defaultValues: defaults,
     });
+
+    useEffect(() => {
+        reset(defaults);
+    }, [post, reset]);
+
+
     const [file, setFile] = useState("");
     const [loading, setLoading] = useState(false);
     useEffect(() => {
@@ -91,13 +98,13 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Title :"
                     placeholder="Title"
-                    className="mb-4 dark:bg-gray-800 text-white"
+                    className="mb-4 dark:bg-gray-800 dark:text-white text-black"
                     {...register("title", { required: true })}
                 />
                 <Input
                     label="Slug :"
                     placeholder="Slug"
-                    className="mb-4 dark:bg-gray-800 text-white"
+                    className="mb-4 dark:bg-gray-800 dark:text-white text-black"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
@@ -109,7 +116,7 @@ const PostForm = ({ post }) => {
                 <Input
                     label="Featured Image :"
                     type="file"
-                    className="mb-4 dark:bg-gray-800 text-white"
+                    className="mb-4 dark:bg-gray-800 dark:text-white text-black"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
@@ -125,7 +132,7 @@ const PostForm = ({ post }) => {
                 <Select
                     options={["active", "inactive"]}
                     label="Status"
-                    className="mb-4 dark:bg-gray-800 text-white"
+                    className="mb-4 dark:bg-gray-800 dark:text-white text-black"
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center hover:bg-white gap-4">

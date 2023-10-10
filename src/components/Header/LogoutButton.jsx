@@ -5,15 +5,17 @@ import { logout } from "../../store/authSlice";
 import { Button } from "../index";
 import { FiLogOut } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const LogoutButton = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const logoutHandler = () => {
         toast.promise(
-
             authService.logout()
                 .then(() => {
                     dispatch(logout());
+                    navigate("/login");
                 })
                 .catch((error) => toast.error(error)),
             {
