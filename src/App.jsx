@@ -14,7 +14,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(changeTheme(`${localStorage.getItem("theme")}`));
+    dispatch(changeTheme(`${localStorage.getItem("theme") || "light"}`));
     authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
