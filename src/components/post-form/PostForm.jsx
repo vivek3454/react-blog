@@ -6,8 +6,10 @@ import fileService from "../../appwrite/file";
 import postService from "../../appwrite/post";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const PostForm = ({ post }) => {
+    const [isDisabled, setIsDisabled] = useState(false);
     let defaults = {
         title: post?.title || "",
         slug: post?.$id || "",
@@ -27,9 +29,7 @@ const PostForm = ({ post }) => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (post) {
-            (async () => {
-                post && setFile(fileService.getFilePreview(post?.featuredImage));
-            })();
+            post && setFile(fileService.getFilePreview(post?.featuredImage));
         }
     }, [post]);
 
@@ -39,36 +39,44 @@ const PostForm = ({ post }) => {
 
     const submit = async (data) => {
         setLoading(true);
-        if (post) {
-            const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
+        setIsDisabled(true);
+        try {
+            if (post) {
+                const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
 
-            if (file) {
-                fileService.deleteFile(post.featuredImage);
-            }
+                if (file) {
+                    fileService.deleteFile(post.featuredImage);
+                }
 
-            const dbPost = await postService.updatePost(post.$id, {
-                ...data,
-                userId:userData.$id,
-                featuredImage: file ? file.$id : undefined,
-            });
-            setLoading(false);
-
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else {
-            const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
-
-            if (file) {
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await postService.createPost({ ...data, userId: userData.$id });
+                const dbPost = await postService.updatePost(post.$id, {
+                    ...data,
+                    userId: userData.$id,
+                    featuredImage: file ? file.$id : undefined,
+                });
                 setLoading(false);
+                setIsDisabled(false);
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
+            } else {
+                const file = data.image[0] ? await fileService.uploadFile(data.image[0]) : null;
+
+                if (file) {
+                    const fileId = file.$id;
+                    data.featuredImage = fileId;
+                    const dbPost = await postService.createPost({ ...data, userId: userData.$id });
+                    setLoading(false);
+
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`);
+                    }
+                }
+                setLoading(false);
+                setIsDisabled(false);
             }
+        } catch (error) {
+            toast.error(error.message);
         }
     };
 
@@ -136,7 +144,7 @@ const PostForm = ({ post }) => {
                     className="mb-4 dark:bg-gray-800 dark:text-white text-black"
                     {...register("status", { required: true })}
                 />
-                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" className="w-full flex justify-center items-center hover:bg-white gap-4">
+                <Button type="submit" bgColor="bg-[#9ED5CB]" textColor="text-black" disabled={isDisabled} className="w-full flex justify-center items-center disabled:border-none disabled:bg-[#e0faf6] hover:bg-white gap-4">
                     {loading && post && "Updating..."}
                     {!loading && post && "Update"}
                     {loading && !post && "Submiting..."}

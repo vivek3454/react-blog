@@ -2,22 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Container, PostForm } from "../components/index";
 import postService from "../appwrite/post";
 import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const EditPost = () => {
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState(null);
     const { slug } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
         (async () => {
-            if (slug) {
-                const dbpost = await postService.getPost(slug);
-                if (dbpost) {
-                    setPost(dbpost);
+            try {
+                if (slug) {
+                    const dbpost = await postService.getPost(slug);
+                    if (dbpost) {
+                        setPost(dbpost);
+                    }
                 }
-            }
-            else {
-                navigate("/");
+                else {
+                    navigate("/");
+                }
+            } catch (error) {
+                toast.error(error.message);
             }
         })();
     }, [slug, navigate]);

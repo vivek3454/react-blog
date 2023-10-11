@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth";
-import { login, logout } from "./store/authSlice";
+import { login, logout } from "./store/slices/authSlice";
 import { Header, Footer } from "./components/index";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Loader from "./components/Loader";
 import toast from "react-hot-toast";
-import { changeTheme } from "./store/themeSlice";
+import { changeTheme } from "./store/slices/themeSlice";
+import { getAllPost } from "./store/slices/postSlice";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 
   useEffect(() => {
     dispatch(changeTheme(`${localStorage.getItem("theme") || "light"}`));
+    dispatch(getAllPost());
     authService.getCurrentUser()
       .then((userData) => {
         if (userData) {
@@ -29,6 +31,11 @@ function App() {
       })
       .finally(() => setLoading(false));
   }, []);
+
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
 
   return !loading ? (

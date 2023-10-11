@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Logo, LogoutButton } from "../index";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "../../store/themeSlice";
+import { changeTheme } from "../../store/slices/themeSlice";
 import { MdCancel, MdDarkMode, MdLightMode, MdMenu } from "react-icons/md";
 
 const Header = () => {

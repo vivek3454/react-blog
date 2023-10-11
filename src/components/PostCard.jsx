@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { Query } from "appwrite";
 
-const PostCard = ({ post, setWantRerender=()=>{} }) => {
+const PostCard = ({ post, setWantRerender = () => { } }) => {
     const ref = useRef(null);
     const currentPostUrl = `${window.location.href}/post/${post.$id}`;
     const userData = useSelector((state) => state.auth.userData);
@@ -23,17 +23,21 @@ const PostCard = ({ post, setWantRerender=()=>{} }) => {
     };
     const handleFavorite = () => {
         (async () => {
-            toast.loading("Loading");
-            const res = await postService.addToFavorite({ postId: post.$id, userId: userData.$id });
-            setIsFavorite(!isFavorite);
-            setWantRerender(Math.random());
-            if (res.addedToFav) {
-                toast.dismiss();
-                toast.success("Added to favorites");
-            }
-            else {
-                toast.dismiss();
-                toast.success("Removed from favorites");
+            try {
+                toast.loading("Loading");
+                const res = await postService.addToFavorite({ postId: post.$id, userId: userData.$id });
+                setIsFavorite(!isFavorite);
+                setWantRerender(Math.random());
+                if (res.addedToFav) {
+                    toast.dismiss();
+                    toast.success("Added to favorites");
+                }
+                else {
+                    toast.dismiss();
+                    toast.success("Removed from favorites");
+                }
+            } catch (error) {
+                toast.error(error.message);
             }
         })();
 

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import authService from "../appwrite/auth";
+import authService from "../../appwrite/auth";
+import toast from "react-hot-toast";
 
 const initialState = {
     status: false,
@@ -10,7 +11,7 @@ export const getUserData = createAsyncThunk("auth/userData", async () => {
     try {
         return await authService.getCurrentUser();
     } catch (error) {
-        console.log("Appwrite serive :: getCurrentUser :: error", error);
+        toast.error(error.message);
     }
 });
 
