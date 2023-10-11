@@ -14,6 +14,7 @@ const LogoutButton = () => {
         try {
             toast.loading("Loading...");
             await authService.logout();
+            toast.dismiss();
             toast.success("User Logged out");
             dispatch(logout());
             navigate("/login");
