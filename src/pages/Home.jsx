@@ -14,8 +14,7 @@ const Home = () => {
         setLoading(false);
     }, [allPosts]);
 
-
-    if (!loading && posts?.length === 0 && !userData) {
+    if (!loading && !userData) {
         return (
             <div className="p-2 w-full flex justify-center items-center min-h-[90vh]">
                 <h1 className="text-2xl font-bold hover:text-gray-500">
